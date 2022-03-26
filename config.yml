@@ -1,0 +1,19 @@
+# Max number of working goroutines at one time.
+maxWorkers: 8
+
+# Input files should have the `.in` extension.
+# Ref files should have these same names, but with the `.ref` extension.
+inputDir: your-path/input
+refDir: your-path/ref
+
+# All executables must read from stdin and write to stdout.
+# Use the `ignore` key to avoid having to comment out an executable.
+execs:
+  - name: c++-example
+    cmd: ['./your-path/exec']
+  - name: java-example
+    cmd: ['java', '-cp', 'your-path', 'Main']
+    time: 2
+  - name: python-example
+    cmd: ['python3', './your-path/main.py']
+    ignore: true
