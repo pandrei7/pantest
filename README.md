@@ -1,4 +1,4 @@
-# multicheck
+# pantest
 
 A tool to run multiple programs on a set of tests.
 
@@ -10,10 +10,10 @@ You should have [Go](https://go.dev/dl/) and the [timeout](http://www.gnu.org/so
 
 ```bash
 # Clone the repo.
-git clone https://github.com/pandrei7/multicheck
+git clone https://github.com/pandrei7/pantest
 
 # Download the Go dependencies.
-cd multicheck
+cd pantest
 go mod tidy
 ```
 ## Usage

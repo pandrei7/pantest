@@ -1,4 +1,4 @@
-module multicheck
+module pantest
 
 go 1.18
 
