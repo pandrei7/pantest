@@ -16,8 +16,6 @@ import (
 	tm "github.com/buger/goterm"
 )
 
-const CONFIG_FILE string = "config.yml"
-
 type Status int
 
 const (
@@ -56,8 +54,8 @@ func (e Event) Msg(msg string) Event {
 	return e
 }
 
-func runCli() {
-	config, err := ParseConfig(CONFIG_FILE)
+func runCli(configFilename string) {
+	config, err := ParseConfig(configFilename)
 	if err != nil {
 		log.Fatal(err)
 	}

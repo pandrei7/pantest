@@ -1,5 +1,11 @@
 package main
 
+import (
+	"github.com/alecthomas/kong"
+)
+
 func main() {
-	runCli()
+	var params Params
+	kong.Parse(&params)
+	runCli(params.ConfigFile)
 }
