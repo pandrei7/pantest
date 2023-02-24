@@ -5,7 +5,8 @@ import (
 )
 
 func main() {
-	var params Params
-	kong.Parse(&params)
-	runCli(params.ConfigFile)
+	var cli Cli
+	ctx := kong.Parse(&cli)
+	err := ctx.Run()
+	ctx.FatalIfErrorf(err)
 }

@@ -1,6 +1,7 @@
 package main
 
 import (
+	_ "embed"
 	"errors"
 	"fmt"
 	"io/ioutil"
@@ -17,6 +18,12 @@ import (
 )
 
 type Status int
+
+// configTemplateBytes contains the default configuration file, ready to be
+// used as a template for new files.
+//
+//go:embed config.yml
+var configTemplateBytes []byte
 
 const (
 	NONE Status = iota
@@ -61,6 +68,19 @@ func runCli(configFilename string) {
 	}
 
 	runChecks(config)
+}
+
+// initConfigFile creates a new configuration file based on the template.
+func initConfigFile(path string) error {
+	if _, err := os.Stat(path); err == nil {
+		return fmt.Errorf("file %v already exists", path)
+	}
+
+	if err := os.WriteFile(path, configTemplateBytes, 0666); err != nil {
+		return fmt.Errorf("failed to write the config file: %w", err)
+	}
+
+	return nil
 }
 
 func runChecks(config Config) {
