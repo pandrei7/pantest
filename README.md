@@ -18,7 +18,9 @@ go mod tidy
 ```
 ## Usage
 
-First edit the [configurations](#configuration) in `config.yml`.
+First create a configuration file using `go run . init` and
+[customize](#configuration) it to your needs.
+
 Then execute `go run .` to run the tests.
 
 ## Configuration
