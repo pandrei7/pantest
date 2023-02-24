@@ -1,11 +1,11 @@
 package main
 
 type ParamsInit struct {
-	Path string `arg:"" type:"path" default:"config.yml" help:"Path of the config file to create."`
+	Path string `arg:"" type:"path" default:"pantest.yml" help:"Path of the config file to create."`
 }
 
 type ParamsRun struct {
-	ConfigFile string `short:"f" type:"path" default:"config.yml" help:"Choose the configuration file."`
+	ConfigFile string `short:"f" type:"path" default:"pantest.yml" help:"Choose the configuration file."`
 }
 
 type Cli struct {

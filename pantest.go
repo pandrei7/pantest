@@ -22,7 +22,7 @@ type Status int
 // configTemplateBytes contains the default configuration file, ready to be
 // used as a template for new files.
 //
-//go:embed config.yml
+//go:embed config-template.yml
 var configTemplateBytes []byte
 
 const (
