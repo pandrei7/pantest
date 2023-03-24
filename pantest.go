@@ -4,7 +4,6 @@ import (
 	_ "embed"
 	"errors"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -184,14 +183,14 @@ func testExec(exe Exec, tests []TestCase, baseEvent Event, events chan<- Event) 
 func runTest(exe Exec, test TestCase, baseEvent Event, events chan<- Event) {
 	events <- baseEvent.Status(STARTING)
 
-	inputBytes, err := ioutil.ReadFile(test.inputFilename)
+	inputBytes, err := os.ReadFile(test.inputFilename)
 	if err != nil {
 		events <- baseEvent.Status(FAILED).Msg(fmt.Sprintf("failed to read input: %v", err))
 		return
 	}
 	input := string(inputBytes)
 
-	refBytes, err := ioutil.ReadFile(test.refFilename)
+	refBytes, err := os.ReadFile(test.refFilename)
 	if err != nil {
 		events <- baseEvent.Status(FAILED).Msg(fmt.Sprintf("failed to read ref: %v", err))
 		return
