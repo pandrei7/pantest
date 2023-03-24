@@ -183,12 +183,12 @@ func testExec(exe Exec, tests []TestCase, baseEvent Event, events chan<- Event) 
 func runTest(exe Exec, test TestCase, baseEvent Event, events chan<- Event) {
 	events <- baseEvent.Status(STARTING)
 
-	inputBytes, err := os.ReadFile(test.inputFilename)
+	inputFile, err := os.Open(test.inputFilename)
 	if err != nil {
-		events <- baseEvent.Status(FAILED).Msg(fmt.Sprintf("failed to read input: %v", err))
+		events <- baseEvent.Status(FAILED).Msg(fmt.Sprintf("failed to open input file: %v", err))
 		return
 	}
-	input := string(inputBytes)
+	defer inputFile.Close()
 
 	refBytes, err := os.ReadFile(test.refFilename)
 	if err != nil {
@@ -196,7 +196,7 @@ func runTest(exe Exec, test TestCase, baseEvent Event, events chan<- Event) {
 		return
 	}
 
-	outputBytes, err := runProgram(input, exe.Cmd, exe.Timeout)
+	outputBytes, err := runProgram(inputFile, exe.Cmd, exe.Timeout)
 	if err != nil {
 		if isTimeout(err) {
 			events <- baseEvent.Status(TLE).Msg(fmt.Sprintf("timed out: %v", err))
@@ -213,10 +213,10 @@ func runTest(exe Exec, test TestCase, baseEvent Event, events chan<- Event) {
 	}
 }
 
-func runProgram(input string, cmdArgs []string, timeout float64) ([]byte, error) {
+func runProgram(inputFile *os.File, cmdArgs []string, timeout float64) ([]byte, error) {
 	args := append([]string{fmt.Sprintf("%f", timeout)}, cmdArgs...)
 	cmd := exec.Command("timeout", args...)
-	cmd.Stdin = strings.NewReader(input)
+	cmd.Stdin = inputFile
 	return cmd.Output()
 }
 
