@@ -46,7 +46,7 @@ func (s *Summarizer) Ingest(event Event) {
 	}
 }
 
-func (s *Summarizer) Summary() string {
+func (s *Summarizer) Summary(isRun bool) string {
 	var summary strings.Builder
 
 	maxNameLen := 0
@@ -58,11 +58,14 @@ func (s *Summarizer) Summary() string {
 
 	for i, name := range s.names {
 		summary.WriteString(fmt.Sprintf("%d. %-*s", i+1, maxNameLen, name))
-		summary.WriteString(fmt.Sprintf("   OK %2d", s.counters[i][OK]))
-		summary.WriteString(fmt.Sprintf(" | WA %2d", s.counters[i][WA]))
-		if tle := s.counters[i][TLE]; tle > 0 {
-			summary.WriteString(fmt.Sprintf(" | TLE %2d", tle))
+		if isRun {
+			summary.WriteString(fmt.Sprintf("   OK %2d", s.counters[i][OK]))
+			summary.WriteString(fmt.Sprintf(" | WA %2d", s.counters[i][WA]))
+		} else {
+			summary.WriteString(fmt.Sprintf("   SAME %2d", s.counters[i][SAME_OUT]))
+			summary.WriteString(fmt.Sprintf(" | DIFF %2d", s.counters[i][MISMATCH]))
 		}
+		summary.WriteString(fmt.Sprintf(" | TLE %2d", s.counters[i][TLE]))
 		if failed := s.counters[i][FAILED]; failed > 0 {
 			summary.WriteString(fmt.Sprintf(" (%d failed)", failed))
 		}

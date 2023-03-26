@@ -79,7 +79,7 @@ func runSameTests(config Config, rounds int, exec1, exec2 Exec) {
 		tm.Println()
 		tm.Flush()
 		// goterm does not seem to handle big strings? Use fmt instead.
-		fmt.Print(summarizer.Summary())
+		fmt.Print(summarizer.Summary(false))
 
 		monitorDone <- struct{}{}
 	}()
@@ -138,11 +138,12 @@ func runSameTest(index int, config Config, exec1, exec2 Exec, baseEvent Event, e
 	}
 
 	if err1 != nil || err2 != nil {
+		// This is a hack to ensure both execs have the same "SAME" count.
 		if err1 == nil {
-			events <- baseEvent.Exec(0).Status(SAME_OUT)
+			events <- baseEvent.Exec(0).Status(OK)
 		}
 		if err2 == nil {
-			events <- baseEvent.Exec(1).Status(SAME_OUT)
+			events <- baseEvent.Exec(1).Status(OK)
 		}
 		return
 	}
@@ -191,7 +192,8 @@ func determineStatus(err error) Status {
 func displayStartupInfo(config Config, rounds int, maxWorkers int) {
 	tm.Printf("Running %v rounds with %v workers.\n", rounds, maxWorkers)
 	for i, exec := range config.Execs {
-		tm.Printf("%d. %s (%.2fs timeout)\n", i+1, exec.Name, exec.Timeout)
+		tm.Printf("%d. %s\t(%.2fs timeout)\n", i+1, exec.Name, exec.Timeout)
 	}
+	tm.Println()
 	tm.Flush()
 }

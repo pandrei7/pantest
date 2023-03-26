@@ -110,7 +110,7 @@ func runChecks(config Config) {
 		tm.Println()
 		tm.Flush()
 		// goterm does not seem to handle big strings? Use fmt instead.
-		fmt.Print(summarizer.Summary())
+		fmt.Print(summarizer.Summary(true))
 
 		monitorDone <- struct{}{}
 	}()
