@@ -1,4 +1,4 @@
-module pantest
+module github.com/pandrei7/pantest
 
 go 1.18
 
