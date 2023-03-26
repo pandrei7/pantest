@@ -53,21 +53,27 @@ func (u *UI) Display(event Event) {
 
 func (u *UI) renderTestCell(execIndex, testIndex int, status Status) {
 	symbol := map[Status]string{
-		NONE:     "_",
-		STARTING: "?",
-		FAILED:   "⚠",
-		WA:       "✖",
-		TLE:      "⏱",
-		OK:       "✓",
+		NONE:       "_",
+		STARTING:   "?",
+		FAILED:     "⚠",
+		WA:         "✖",
+		TLE:        "⏱",
+		OK:         "✓",
+		GENERATING: ".",
+		SAME_OUT:   "✓",
+		MISMATCH:   "/",
 	}[status]
 
 	color := map[Status]int{
-		NONE:     tm.WHITE,
-		STARTING: tm.YELLOW,
-		FAILED:   tm.MAGENTA,
-		WA:       tm.RED,
-		TLE:      tm.BLUE,
-		OK:       tm.GREEN,
+		NONE:       tm.WHITE,
+		STARTING:   tm.YELLOW,
+		FAILED:     tm.MAGENTA,
+		WA:         tm.RED,
+		TLE:        tm.BLUE,
+		OK:         tm.GREEN,
+		GENERATING: tm.YELLOW,
+		SAME_OUT:   tm.GREEN,
+		MISMATCH:   tm.RED,
 	}[status]
 
 	rowOffset := len(u.names) - execIndex

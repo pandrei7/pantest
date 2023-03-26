@@ -31,6 +31,9 @@ const (
 	WA
 	TLE
 	OK
+	GENERATING
+	SAME_OUT
+	MISMATCH
 )
 
 type Event struct {

@@ -1,10 +1,17 @@
 # Max number of working goroutines at one time.
 maxWorkers: 8
 
+# Parameters for the `run` command.
 # Input files should have the `.in` extension.
 # Ref files should have these same names, but with the `.ref` extension.
 inputDir: your-path/input
 refDir: your-path/ref
+
+# Parameters for the `same` command.
+# The command which generates a random test (writes to stdout).
+testGenCmd: ['python3', 'your-script']
+# The directory where random tests are generated.
+testGenDir: 'your-path'
 
 # All executables must read from stdin and write to stdout.
 # Use the `ignore` key to avoid having to comment out an executable.
