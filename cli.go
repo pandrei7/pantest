@@ -5,7 +5,7 @@ type ParamsInit struct {
 }
 
 type ParamsRun struct {
-	ConfigFile string `short:"f" type:"path" default:"pantest.yml" help:"Choose the configuration file."`
+	ConfigFile string `short:"f" type:"existingfile" default:"pantest.yml" help:"Choose the configuration file."`
 }
 
 type Cli struct {
