@@ -9,10 +9,12 @@ import (
 )
 
 type Config struct {
-	MaxWorkers int    `yaml:"maxWorkers" default:"10"`
-	InputDir   string `yaml:"inputDir"`
-	RefDir     string `yaml:"refDir"`
-	Execs      []Exec `yaml:"execs"`
+	MaxWorkers int      `yaml:"maxWorkers" default:"10"`
+	InputDir   string   `yaml:"inputDir"`
+	RefDir     string   `yaml:"refDir"`
+	TestGenCmd []string `yaml:"testGenCmd"`
+	TestGenDir string   `yaml:"testGenDir"`
+	Execs      []Exec   `yaml:"execs"`
 }
 
 type Exec struct {
